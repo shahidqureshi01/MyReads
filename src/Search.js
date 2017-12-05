@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
-import CurrentlyReading from './CurrentlyReading'
+import * as BooksAPI from './BooksAPI'
+import SearchResults from './SearchResults'
 import './App.css';
 
 class Search extends Component {
+
   state = {
     searchQuery:  '',
-    result:[]
+    books:[]
   }
 
   handleChange = (query) => {
-    this.setState({searchQuery: query.trim()});
-    if(this.state.searchQuery) {
-      const match = new RegExp(escapeRegExp(this.state.searchQuery), 'i'); 
-      this.setState({result: this.props.books.filter((book) =>  (match.test(book.title)) || (match.test(book.authors)) )});
-      this.state.result.sort(sortBy('title'))
+    this.setState({searchQuery: query});
+    if(query) {
+      BooksAPI.search(query, 20).then((books) => {
+        this.setState({books});
+      })
+    } else {
+      this.setState({books: []});
     }
   }
 
-	render() {
-    return (	
+  render() {
+    return (  
       <div className="search-books">
         <div className="search-books-bar">
           <Link className="close-search" to="/" >Close</Link>
@@ -32,11 +34,14 @@ class Search extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid"></ol> 
-          <CurrentlyReading books={this.state.result} onChangeHandler={this.props.onChangeHandler} heading="Search Result" />
+          <SearchResults books={this.state.books} 
+          onShelfBooks={this.props.onShelfBooks}
+          onChangeHandler={this.props.onChangeHandler} heading="Search Result" 
+          />
         </div>
       </div>         
-		);
-	}
+    );
+  }
 }
 
 Search.proptypes = {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
 
-class CurrentlyReading extends Component {
+class MyReads extends Component {
 	render() {
 		return (
       <div className="bookshelf">
@@ -36,4 +35,4 @@ class CurrentlyReading extends Component {
 	}
 }
 
-export default CurrentlyReading;
+export default MyReads;

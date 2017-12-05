@@ -1,0 +1,868 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"get",
+				"getBookShelf"
+			],
+			[
+				"on",
+				"onShelfBooks"
+			],
+			[
+				"a",
+				"author"
+			],
+			[
+				"Cu",
+				"currentlyReading"
+			],
+			[
+				"S",
+				"SearchResults"
+			],
+			[
+				"sort",
+				"sortBy"
+			],
+			[
+				"react",
+				"react-router-dom"
+			],
+			[
+				"fil",
+				"filterAuthors"
+			],
+			[
+				"reg",
+				"escapeRegExp"
+			],
+			[
+				"search",
+				"searchQuery"
+			],
+			[
+				"add",
+				"addTo"
+			],
+			[
+				"cur",
+				"currentBooks"
+			],
+			[
+				"curre",
+				"currentBooks"
+			],
+			[
+				"comp",
+				"Component"
+			],
+			[
+				"Books",
+				"BooksAPI"
+			],
+			[
+				"books",
+				"BooksAPI"
+			],
+			[
+				"Want",
+				"WantToReadBooks"
+			],
+			[
+				"car",
+				"carousel-next"
+			],
+			[
+				"data",
+				"dataLength"
+			],
+			[
+				"image",
+				"imageCollection"
+			],
+			[
+				"my",
+				"MyModel"
+			],
+			[
+				"li",
+				"link\tTag"
+			],
+			[
+				"ti",
+				"title"
+			],
+			[
+				"App",
+				"AppView"
+			],
+			[
+				"loca",
+				"location"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"array",
+				"array_push"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "App.js",
+			"settings":
+			{
+				"buffer_size": 3000,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/shahid/Documents/courses/React/MyReads - Copy/src/Books.js",
+			"settings":
+			{
+				"buffer_size": 3057,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "App.css",
+			"settings":
+			{
+				"buffer_size": 2817,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "MyReads.js",
+			"settings":
+			{
+				"buffer_size": 1564,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/shahid/Documents/courses/React/MyReads/README.md",
+			"settings":
+			{
+				"buffer_size": 1349,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 1199,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Search.js",
+			"settings":
+			{
+				"buffer_size": 1416,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "SearchResults.js",
+			"settings":
+			{
+				"buffer_size": 1776,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "import React, { Component } from 'react';\nimport './App.css';\n\n\nclass SearchResults extends Component {\n\n  state = {\n    shelf: ''\n  }\n\n  getBookShelf = (bookID) => {\n    let shelf = 'none';\n    for(let b of this.props.onShelfBooks) {\n      //console.log('bid =',b.id, 'book id=',bookID)\n      if(b.id === bookID) {\n        return b.shelf;\n      }\n    }\n    return shelf;\n  }\n\n\trender() {\n    const {books} = this.props;\n    const bookDetails = books.map(book => {\n      const shelf = this.getBookShelf(book.id);\n      book.shelf = shelf;\n      console.log('shelf', shelf)\n      return(\n        <li key={book.id}> <h1>{shelf}</h1>\n          <div className=\"book\">\n            <div className=\"book-top\">\n              <div className=\"book-cover\" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail}?id=${book.id}&printsec=frontcover&img=1&printsec=frontcover&img=1&zoom=1)` }}></div>\n              <div className=\"book-shelf-changer\">\n                <select name=\"grp\" value={book.shelf}\n                   onChange={(event) => this.props.onChangeHandler(book, event.target.value, book.shelf )}>\n                  <option value=\"\" disabled>Move to...</option>\n                  <option value=\"currentlyReading\" >Currently Reading</option>\n                  <option value=\"wantToRead\">Want to Read</option>\n                  <option value=\"read\">Read</option>\n                  <option value=\"none\">None</option>\n                </select>\n              </div>\n            </div>\n            <div className=\"book-title\">{book.title}</div>\n            <div className=\"book-authors\" key=\"book.authors\">{book.authors}</div>\n          </div>\n        </li>\n      )\n    })\n\t\treturn (\n      <div className=\"bookshelf\">\n      <h2 className=\"bookshelf-title\">{this.props.heading}</h2>\n      <div className=\"bookshelf-books\"> \n          <ol className=\"books-grid\">\n            {bookDetails}\n          </ol>\n        </div>\n      </div>\n\t\t);\n\t}\n}\n\nexport default SearchResults;\n",
+			"settings":
+			{
+				"buffer_size": 1996,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "import React, { Component } from 'react';\nimport './App.css';\n\nclass SearchResult extends Component {\n  render() {\n    return (\n      <div className=\"bookshelf\">\n      <h2 className=\"bookshelf-title\">{this.props.heading}</h2>\n      <div className=\"bookshelf-books\"> \n          <ol className=\"books-grid\">\n            {console.log('props',this.state.props)}\n          </ol>\n        </div>\n      </div>\n    );\n  }\n}\n\nexport default SearchResult;",
+			"file": "SearchResult.js",
+			"file_size": 461,
+			"file_write_time": 131465360592276668,
+			"settings":
+			{
+				"buffer_size": 443,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "import React from 'react'\nimport PropTypes from 'prop-types'\nimport { Route } from 'react-router-dom'\nimport { Link } from 'react-router-dom'\nimport * as BooksAPI from './BooksAPI'\nimport CurrentlyReading from './CurrentlyReading'\nimport Search from './Search'\nimport './App.css'\n\nclass BooksApp extends React.Component {\n\n  constructor(props) {\n    super(props);\n    this.state = { \n      books: [],\n      currentlyReading: [],\n      wantToRead: [],\n      read: []\n    }\n  }\n\n  componentDidMount() {\n    BooksAPI.getAll().then((books) => {\n      this.setState({books});\n      this.setState({currentlyReading: books.filter((b) => b.shelf === 'currentlyReading')}); \n      this.setState({wantToRead: books.filter((b) => b.shelf === 'wantToRead')});\n      this.setState({read: books.filter((b) => b.shelf === 'read')});\n    });\n  }\n\n  onChangeHandler = (book, addTo, removeFrom) => {\n    if(addTo !== removeFrom) {\n      this.setState((state) => {\n        console.log('main state', this.state);\n        if(book.shelf) {\n          state[removeFrom] = state[removeFrom].filter((b) => b.id !== book.id); \n        }\n        if(book.shelf !== 'none') {\n          book.shelf = addTo; \n        } \n        state[addTo].push(book);\n        //state[book].push(book)\n      }); \n    }\n  }\n\n  render() {\n    return (\n      <div className=\"app\">\n        <Route exact path=\"/search\" render={({ history }) => (\n          <Search onShelfBooks={this.state.books} \n            onChangeHandler={(book, addTo, removeFrom) => {\n              this.onChangeHandler(book, addTo, removeFrom)\n              //history.push('/')\n            }}/>\n        )}/>\n        <Route exact path=\"/\" render={() => (\n          <div className=\"list-books\">\n            <h1>{this.state.title}</h1>\n            <div className=\"list-books-title\">\n              <h1>MyReads</h1>\n            </div>\n            <div className=\"list-books-content\">\n              <div>\n                <CurrentlyReading books={this.state.currentlyReading} onChangeHandler={this.onChangeHandler} heading=\"Currently Reading\" />\n                <CurrentlyReading books={this.state.wantToRead} onChangeHandler={this.onChangeHandler} heading=\"Want To Read\"/>\n                <CurrentlyReading books={this.state.read} onChangeHandler={this.onChangeHandler} heading=\"Read\"/>\n              </div>\n            </div>\n            <div className=\"open-search\">\n              <Link to=\"/search\">Add a book</Link>\n            </div>\n          </div>\n        )}/>\n      </div>\n    )\n  }\n}\n\nBooksApp.proptypes = {\n  heading: PropTypes.string.isRequired,\n  books:  PropTypes.array.isRequired,\n  currentlyReading: PropTypes.array.isRequired,\n  wantToRead: PropTypes.array.isRequired,\n  read: PropTypes.array.isRequired,\n  onChangeHandler: PropTypes.func.isRequired\n}\n\nexport default BooksApp\nimport React from 'react'\nimport PropTypes from 'prop-types'\nimport { Route } from 'react-router-dom'\nimport { Link } from 'react-router-dom'\nimport * as BooksAPI from './BooksAPI'\nimport CurrentlyReading from './CurrentlyReading'\nimport Search from './Search'\nimport './App.css'\n\nclass BooksApp extends React.Component {\n\n  constructor(props) {\n    super(props);\n    this.state = { \n      books: [],\n      currentlyReading: [],\n      wantToRead: [],\n      read: []\n    }\n  }\n\n  componentDidMount() {\n    BooksAPI.getAll().then((books) => {\n      this.setState({books});\n      this.setState({currentlyReading: books.filter((b) => b.shelf === 'currentlyReading')}); \n      this.setState({wantToRead: books.filter((b) => b.shelf === 'wantToRead')});\n      this.setState({read: books.filter((b) => b.shelf === 'read')});\n    });\n  }\n\n  onChangeHandler = (book, addTo, removeFrom) => {\n    if(addTo !== removeFrom) {\n      this.setState((state) => {\n        console.log('main state', this.state);\n        if(book.shelf) {\n          state[removeFrom] = state[removeFrom].filter((b) => b.id !== book.id); \n        }\n        if(book.shelf !== 'none') {\n          book.shelf = addTo; \n        } \n        state[addTo].push(book);\n        //state[book].push(book)\n      }); \n    }\n  }\n\n  render() {\n    return (\n      <div className=\"app\">\n        <Route exact path=\"/search\" render={({ history }) => (\n          <Search onShelfBooks={this.state.books} \n            onChangeHandler={(book, addTo, removeFrom) => {\n              this.onChangeHandler(book, addTo, removeFrom)\n              //history.push('/')\n            }}/>\n        )}/>\n        <Route exact path=\"/\" render={() => (\n          <div className=\"list-books\">\n            <h1>{this.state.title}</h1>\n            <div className=\"list-books-title\">\n              <h1>MyReads</h1>\n            </div>\n            <div className=\"list-books-content\">\n              <div>\n                <CurrentlyReading books={this.state.currentlyReading} onChangeHandler={this.onChangeHandler} heading=\"Currently Reading\" />\n                <CurrentlyReading books={this.state.wantToRead} onChangeHandler={this.onChangeHandler} heading=\"Want To Read\"/>\n                <CurrentlyReading books={this.state.read} onChangeHandler={this.onChangeHandler} heading=\"Read\"/>\n              </div>\n            </div>\n            <div className=\"open-search\">\n              <Link to=\"/search\">Add a book</Link>\n            </div>\n          </div>\n        )}/>\n      </div>\n    )\n  }\n}\n\nBooksApp.proptypes = {\n  heading: PropTypes.string.isRequired,\n  books:  PropTypes.array.isRequired,\n  currentlyReading: PropTypes.array.isRequired,\n  wantToRead: PropTypes.array.isRequired,\n  read: PropTypes.array.isRequired,\n  onChangeHandler: PropTypes.func.isRequired\n}\n\nexport default BooksApp\n",
+			"settings":
+			{
+				"buffer_size": 5616,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "import React, { Component } from 'react';\nimport './App.css';\n\nclass CurrentlyReading extends Component {\n\trender() {\n\t\treturn (\n      <div className=\"bookshelf\">\n      <h2 className=\"bookshelf-title\">{this.props.heading}</h2>\n      <div className=\"bookshelf-books\"> \n          <ol className=\"books-grid\">\n          {this.props.books.map((book) => (\n            <li key={book.id}> \n              <div className=\"book\">\n                <div className=\"book-top\">\n                <div className=\"book-cover\" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail}?id=${book.id}&printsec=frontcover&img=1&printsec=frontcover&img=1&zoom=1)` }}></div>\n                  <div className=\"book-shelf-changer\">\n                    <select name=\"grp\" value={book.shelf} onChange={(event) => this.props.onChangeHandler(book, event.target.value, book.shelf )}>\n                      <option value=\"none\" disabled>Move to...</option>\n                      <option value=\"currentlyReading\" >Currently Reading</option>\n                      <option value=\"wantToRead\">Want to Read</option>\n                      <option value=\"read\">Read</option>\n                    </select>\n                  </div>\n                </div>\n                <div className=\"book-title\">{book.title}</div>\n                {book.authors.map((author) => \n                <div className=\"book-authors\" key={author}>{author}</div>\n                )}\n              </div>\n            </li>\n          ))}\n          </ol>\n        </div>\n      </div>\n\t\t);\n\t}\n}\n\nexport default CurrentlyReading;",
+			"file": "CurrentlyReading.js",
+			"file_size": 1620,
+			"file_write_time": 131467080121949279,
+			"settings":
+			{
+				"buffer_size": 1582,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/Books.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads - Copy/src/Books.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads - Copy/CONTRIBUTING.md",
+		"/C/Users/shahid/Documents/courses/React/MyReads - Copy/README.md",
+		"/C/Users/shahid/Documents/courses/React/MyReads/README - Old.md",
+		"/C/Users/shahid/Documents/courses/React/MyReads - Copy/src/CurrentlyReading.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads/SEARCH_TERMS.md",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/README.md",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/BooksAPI.js",
+		"/C/Users/shahid/Desktop/Abdelhafid.html",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/bkup/Search - Copy.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads/package.json",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/bkup/App - Copy.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/index.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/SearchResult.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/App.sublime-workspace",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/Seach.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/Search (2).js",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/bkup/search_copy.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/AppCopy.js",
+		"/C/Users/shahid/Downloads/r_player_index.php",
+		"/C/Users/shahid/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/shahid/Documents/courses/React/MyReads/public/index.html",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/WantToReadBooks.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/ReadBooks.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/App.test.js",
+		"/C/Users/shahid/Downloads/c_review_data.php",
+		"/C/Users/shahid/Downloads/code.php",
+		"/C/Users/shahid/Downloads/login.php",
+		"/C/Users/shahid/Downloads/c_player_update.php",
+		"/C/Users/shahid/Downloads/success.php",
+		"/C/Users/shahid/Downloads/player_login.php",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/index.css",
+		"/C/Users/shahid/Documents/courses/React/contacts/src/App.js",
+		"/C/Users/shahid/Documents/courses/React/contacts/reactnd-contacts-server/server.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads/README.md",
+		"/C/Users/shahid/Documents/courses/React/contacts/src/ListContacts.js",
+		"/C/Users/shahid/Documents/courses/React/contacts/src/index.js",
+		"/C/Users/shahid/Documents/courses/React/MyReads/src/App.js",
+		"/C/Users/shahid/Documents/work/backbone/Task3.html",
+		"/C/Users/shahid/Documents/work/backbone/task/Task2.html",
+		"/C/Users/shahid/Documents/work/backbone/Task2.html",
+		"/C/Users/shahid/Documents/work/backbone/Task.html",
+		"/C/Users/shahid/Documents/work/backbone/test.html",
+		"/C/Users/shahid/Documents/courses/React/contacts2/src/App.js",
+		"/C/Users/shahid/Documents/corssover/node/node-express/imageServer.js",
+		"/C/Users/shahid/Documents/courses/React/contacts/public/index.html",
+		"/C/Users/shahid/Documents/courses/React/contacts2/src/index.css",
+		"/C/Users/shahid/Documents/work/backbone/styles/style.css",
+		"/C/Users/shahid/Documents/work/backbone/task/styles/style.css",
+		"/C/Users/shahid/Downloads/chrome.DMP",
+		"/C/Users/shahid/Documents/work/backbone/task_backup.html",
+		"/C/Users/shahid/Documents/corssover/node/node-express/server4.js",
+		"/C/Users/shahid/Documents/corssover/node/node-express/imageServer4.js",
+		"/C/Users/shahid/Documents/work/backbone/styles/sytle.css",
+		"/C/Users/shahid/Documents/work/backbone/exercise files/3-backbone-m3-views-exercise-files/backbone-03-view.extend-new.js",
+		"/C/Users/shahid/Documents/work/backbone/exercise files/3-backbone-m3-views-exercise-files/backbone-03-view-events.js",
+		"/C/Users/shahid/Documents/work/backbone/exercise files/3-backbone-m3-views-exercise-files/backbone-03-view-and-model.js",
+		"/C/Users/shahid/Documents/work/backbone/exercise files/3-backbone-m3-views-exercise-files/backbone-03-view-render-template.js",
+		"/C/Users/shahid/Documents/work/backbone/exercise files/4-backbone-m4-templating-exercise-files/backbone-04-handlebars-rendering.js",
+		"/C/Users/shahid/Documents/work/backbone/exercise files/4-backbone-m4-templating-exercise-files/backbone-04-precompiled-underscore.js",
+		"/C/Users/shahid/Documents/work/backbone/exercise files/4-backbone-m4-templating-exercise-files/backbone-04-view-render-template.js",
+		"/C/Users/shahid/Documents/work/backbone/exercise files/4-backbone-m4-templating-exercise-files/handlebars_precompilation/templates.js",
+		"/C/Users/shahid/Documents/work/backbone/exercise files/3-backbone-m3-views-exercise-files/backbone-03-instantiate-view.js",
+		"/C/Users/shahid/Documents/work/backbone/exercise files/3-backbone-m3-views-exercise-files/backbone-03-view-render.js",
+		"/C/Users/shahid/Documents/work/backbone/exercise files/3-backbone-m3-views-exercise-files/backbone-03-render.js",
+		"/C/Users/shahid/Documents/work/backbone/5-marionette-fundamentals-exercise-files/Views/Home/Index.cshtml",
+		"/C/xampp/vendor/phpunit/phpunit/composer.json",
+		"/C/Users/shahid/Desktop/readme.txt",
+		"/C/xampp/htdocs/rest/tests/Unit/ExampleTest.php",
+		"/C/xampp/htdocs/rest/app/Http/Controllers/BookController.php",
+		"/C/xampp/htdocs/rest/composer.json",
+		"/C/xampp/htdocs/rest/vendor/composer/installed.json",
+		"/C/xampp/htdocs/rest/phpunit.xml",
+		"/C/ProgramData/ComposerSetup/bin/composer.bat",
+		"/C/Users/shahid/Documents/work/laravel/PHPUnit/composer.json",
+		"/C/xampp/composer.json",
+		"/C/ProgramData/ComposerSetup/bin/composer",
+		"/C/ProgramData/ComposerSetup/bin/composer.phar",
+		"/C/xampp/htdocs/rest/vendor/phpunit/phpunit/composer.json",
+		"/C/Users/shahid/composer.phar",
+		"/C/Users/shahid/Documents/work/laravel/5-php-laravel-restful-web-services-m5-exercise-files/Code/app/Http/Controllers/MeetingController.php",
+		"/C/xampp/htdocs/rest/app/Http/Controllers/LocationController.php",
+		"/C/xampp/htdocs/rest/app/Book.php",
+		"/C/xampp/htdocs/rest/app/Location.php",
+		"/C/xampp/htdocs/rest/app/Author.php",
+		"/C/xampp/htdocs/rest/routes/api.php",
+		"/C/xampp/htdocs/rest/app/Http/Controllers/AuthorController.php",
+		"/C/xampp/htdocs/rest/database/migrations/2017_03_28_130906_create_books_table.php",
+		"/C/xampp/htdocs/rest/app/location.php",
+		"/C/xampp/htdocs/rest/app/Http/routes.php",
+		"/C/Users/shahid/Documents/work/laravel/5-php-laravel-restful-web-services-m5-exercise-files/Code/app/Meeting.php",
+		"/C/Users/shahid/Documents/work/laravel/5-php-laravel-restful-web-services-m5-exercise-files/Code/database/migrations/2016_05_11_124723_create_meetings_table.php",
+		"/C/Users/shahid/Documents/work/laravel/5-php-laravel-restful-web-services-m5-exercise-files/Code/database/migrations/2014_10_12_000000_create_users_table.php",
+		"/C/Users/shahid/Documents/work/laravel/5-php-laravel-restful-web-services-m5-exercise-files/Code/database/migrations/backup/2014_10_12_000000_create_users_table.php",
+		"/C/xampp/htdocs/rest/config/database.php",
+		"/C/xampp/htdocs/rest/database/seeds/DatabaseSeeder.php",
+		"/C/xampp/htdocs/rest/database/migrations/2014_10_12_000000_create_users_table.php",
+		"/C/Users/shahid/Documents/work/php courses/1-object-oriented-php-classical-inheritance-model-m1-exercise-files/Clip2/Concept/Classes/Car.php",
+		"/C/xampp/apache/logs/error.log",
+		"/C/xampp/htdocs/rest/app/Providers/RouteServiceProvider.php",
+		"/C/xampp/htdocs/rest/routes/web.php",
+		"/C/xampp/apache/conf/httpd.conf",
+		"/C/Users/shahid/Documents/edx/css/style.css",
+		"/C/Users/shahid/Documents/edx/css/index.html",
+		"/C/Users/shahid/Documents/edx/css/normalize.css",
+		"/C/Users/shahid/Downloads/setTimeout-start.html",
+		"/C/Users/shahid/Documents/work/laravel/6-php-laravel-restful-web-services-m6-exercise-files/Code/app/Http/Controllers/MeetingController.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"the",
+			"[],\n",
+			"length",
+			"portal",
+			"currentreading",
+			"rae",
+			"current",
+			"currentReading",
+			"currentlyReading",
+			"      \n",
+			"con",
+			"carousel-next",
+			"data",
+			"car",
+			"composer.",
+			"phpunit",
+			"meet",
+			"localhost",
+			"vhost",
+			"root",
+			"document"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "App.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3000,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2412,
+								2412
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 76.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/shahid/Documents/courses/React/MyReads - Copy/src/Books.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3057,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 304.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "App.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2817,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2726,
+								2726
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2717.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "MyReads.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1564,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1563,
+								1563
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Users/shahid/Documents/courses/React/MyReads/README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1349,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								77,
+								77
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1199,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								249,
+								249
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Search.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1416,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								476,
+								476
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "SearchResults.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1776,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1430,
+								1430
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1996,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								375,
+								136
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "SearchResult.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 443,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								353,
+								353
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5616,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4082,
+								3639
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1249.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "CurrentlyReading.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1582,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								381,
+								381
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 19.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "App.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

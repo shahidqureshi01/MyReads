@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
-import CurrentlyReading from './CurrentlyReading'
+import MyReads from './MyReads'
 import Search from './Search'
 import './App.css'
 
@@ -21,19 +21,36 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      this.setState({books});
-      this.setState({currentlyReading: books.filter((b) => b.shelf === 'currentlyReading')}); 
-      this.setState({wantToRead: books.filter((b) => b.shelf === 'wantToRead')});
-      this.setState({read: books.filter((b) => b.shelf === 'read')});
+      this.setState({
+        books,
+        currentlyReading: books.filter((b) => b.shelf === 'currentlyReading'),
+        wantToRead: books.filter((b) => b.shelf === 'wantToRead'),
+        read: books.filter((b) => b.shelf === 'read')
+      });
     });
+  }
+
+  updateStatus = (book, value) => {
+    book.shelf = value
+
+    BooksAPI.update(book, value).then(res => {
+      this.setState(state => ({
+        books: state.books.filter(b => b.id !== book.id).concat([ book ])
+      }))
+    })
   }
 
   onChangeHandler = (book, addTo, removeFrom) => {
     if(addTo !== removeFrom) {
       this.setState((state) => {
-        state[removeFrom] = state[removeFrom].filter((b) => b.id !== book.id);
-        book.shelf = addTo;
+        if(removeFrom !== 'none') {
+          state[removeFrom] = state[removeFrom].filter((b) => b.id !== book.id); 
+        }
+        book.shelf = addTo; 
         state[addTo].push(book);
+        state['books'].push(book);
+        this.updateStatus(book, addTo);
+        console.log('books', state['books'])
       }); 
     }
   }
@@ -42,10 +59,9 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route exact path="/search" render={({ history }) => (
-          <Search books={this.state.books} 
+          <Search onShelfBooks={this.state.books} 
             onChangeHandler={(book, addTo, removeFrom) => {
               this.onChangeHandler(book, addTo, removeFrom)
-              history.push('/')
             }}/>
         )}/>
         <Route exact path="/" render={() => (
@@ -56,9 +72,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <CurrentlyReading books={this.state.currentlyReading} onChangeHandler={this.onChangeHandler} heading="Currently Reading" />
-                <CurrentlyReading books={this.state.wantToRead} onChangeHandler={this.onChangeHandler} heading="Want To Read"/>
-                <CurrentlyReading books={this.state.read} onChangeHandler={this.onChangeHandler} heading="Read"/>
+                <MyReads books={this.state.currentlyReading} onChangeHandler={this.onChangeHandler} heading="Currently Reading" />
+                <MyReads books={this.state.wantToRead} onChangeHandler={this.onChangeHandler} heading="Want To Read"/>
+                <MyReads books={this.state.read} onChangeHandler={this.onChangeHandler} heading="Read"/>
               </div>
             </div>
             <div className="open-search">
